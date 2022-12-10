@@ -24,4 +24,5 @@ _start:
     call kernel_main
     jmp $
 
+
 times 512-($ - $$) db 0 ; So this code would be aligned by 16 bytes like the c code

@@ -1,6 +1,7 @@
 #include "kernel.h"
 #include <stddef.h>
 #include <stdint.h>
+#include "idt/idt.h"
 
 uint16_t* video_mem = 0;
 uint16_t terminal_row = 0;
@@ -63,5 +64,9 @@ void color_print(const char* str, char color){
 void kernel_main(){
     terminal_initialize();
     print("Hello world!\n\n");
-    color_print("Welcome to BirOS:)", 3);
+    color_print("Welcome to BirOS:)\n", 3);
+
+    // Initialize the interrupt descriptor table 
+    idt_init();
+    
 }

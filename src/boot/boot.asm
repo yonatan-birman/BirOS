@@ -67,7 +67,7 @@ load32:
     call ata_lba_read
     jmp CODE_SEG:0x0100000
 
-; temporary driver only for loading the kernel
+; Temporary driver only for loading the kernel
 ata_lba_read:
     mov ebx, eax, ; Backup the LBA
     ; Send the highest 8 bits of the lba to hard disk controller
