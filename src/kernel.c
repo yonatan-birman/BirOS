@@ -2,6 +2,7 @@
 #include "idt/idt.h"
 #include "io/io.h"
 #include "memory/heap/kheap.h"
+#include "memory/paging/paging.h"
 #include <stddef.h>
 #include <stdint.h>
 
@@ -70,6 +71,7 @@ void color_print(const char* str, char color)
     }
 }
 
+static struct paging_4gb_chunk* kernel_chunk = 0;
 void kernel_main()
 {
     terminal_initialize();
@@ -81,6 +83,15 @@ void kernel_main()
 
     // Initialize the interrupt descriptor table
     idt_init();
+
+    // Setup paging
+    kernel_chunk = paging_new_4gb(PAGING_IS_WRITABLE | PAGING_IS_PRESENT | PAGING_ACCESS_FROM_ALL);
+
+    // Switch to kernel threading chunk
+    paging_switch(paging_4gb_chunk_get_directory(kernel_chunk));
+
+    // Enable paging
+    enable_paging();
 
     // Enable the system interrupts
     enable_interrupts();
