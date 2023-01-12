@@ -1,11 +1,5 @@
 {
     "files.associations": {
-        "stdlib.h": "c",
-        "kernel.h": "c",
-        "kheap.h": "c",
-        "heap.h": "c",
-        "stdint.h": "c",
-        "config.h": "c",
-        "io.h": "c"
+        "*.h": "c"
     }
 }
